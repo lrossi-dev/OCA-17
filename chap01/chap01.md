@@ -44,8 +44,8 @@ public int numberVisitors(int month) {
 * Packages essentially help us to organize and share code. It's easier to distribute multiple classes in a single package and it's easier to understand my code if I know from which package each class comes.
 * Missing `import` statements may cause a compilation error like: `error: cannot find symbol`;
 * Example importing and using the `Random` class is implemented in `NumberPicker.java` file;
-* The book states clearly that the exam doesn't try to fool you with invalid { import` statements, but just by reading that I guess I'll stay alert to the imports as well whenever they show up;
-* The import wildcard ***** can be used in order to import all the classes in a package. It's important to keep in mind that child packages are not imported;
+* The book states clearly that the exam doesn't try to fool you with invalid `import` statements, but just by reading that I guess I'll stay alert to the imports as well whenever they show up;
+* The import wildcard *** * *** can be used in order to import all the classes in a package. It's important to keep in mind that child packages are not imported;
 * Now as we all have learned in college, importing a bunch of unused classes (let's say by using the import wildcard) doesn't slows down your program. It's just usually considered a bad practice, since you may then stumble upon classes amidst the program that you're not familiar with and have a hard time figuring out from which package they're from.
 * The `java.lang` package is always imported;
 * Classes that are int the same package also don't need to import eachother, they're already mutually accessible;
@@ -61,5 +61,70 @@ public int numberVisitors(int month) {
 * It's always better to keep your bytecode away from your source code. To do so, use the `-d` option of the `javac` command to specify a directory to store your bytecode. If you do so, remember to use the `-cp` or `--classpath` option of the `java` command to specify said directory as the classpath that the JVM will use to search for classes;
 * Another good way to compile a lot of classes together is to generate a **JAR file**. A JAR is like a ZIP or a tarball, but for bytecode;
 * To create a JAR file, you use the `jar` command. The flags and options are incredibly simmilar to those used by the `tar` command (real Linux bros are chilling right now :penguin:): `jar -cfv myJarFile.jar -C classes/directory .`;
+* Package declaration is not mandatory (again, if you don't declare a package, the class will belong to the `default` package), but if it is present, it must be the first line of valid code in the file;
 
-> **_NOTE_**: Need to get some sleep, stopped at page 22 of the book (page 87 of the PDF);
+## What about the objects?
+
+### Constructors
+
+* An object is an instance of a class (PROFESSOR, Your First OOP);
+* Constructors are special block of code that is called in order to create an instance of a class. 
+
+>**_NOTE_**: The book doesnt clearly states whether a construct is a method or not, at least not up to this point. I found many different points of view in this matter, but I guess we could call it a _block of code_ that is executed right after field initialization.
+
+* I skipped the first example because it was way too simple, just calling a constructor and storing the reference to the object onto a variable;
+* Constructor implementation example in the class `Chicken.java`;
+* The test may try to fool you by capitalizing the first letter of a method, like `public void Chicken()`. Beware not to take that for a constructor;
+* A dumb constructor is frequently provided by the compiler, if you don't declare any;
+
+### Member fields
+
+* Not much to see here, it just states that fields can be read and modified;
+* Encapsulation is not covered until much later on the book, so I guess theres really not much to say about fields yet;
+* One interesting thing though is that fields values can be read right after they are initialized. See a funny example of this in `Name.java` file;
+
+### Initializer blocks
+
+* Blocks are marked by bracers;
+* Intance initializers are code blocks defined inside of a class, but outside of a method;
+* You can define code blocks inside of a method. In this case, the block will run once the method is called, if it's reached;
+* There's an example of different types of code blocks in `Bird.java`;
+* The initialization order of a class is always:
+  1. Instance initializers and fields, in the order they appear in the code;
+  2. Constructor;
+
+## Data Types
+
+* There are only two types of data in Java: primitives and references;
+* Primitive types are single values in the memory. They are not objects, they are much simpler than that;
+* The eight primitives in Java are:
+  * `boolean`;
+  * `byte`;
+  * `short`;
+  * `int`;
+  * `long`;
+  * `float`;
+  * `double`;
+  * `char`;
+* There's no need to memorize the sizes of each type, since this won't be on the test;
+* The book covers the very basics on this data types, like how to declare `long` literals by placing a `L` or a `l` at the end of a number;
+* There's also an example about the underscores (like `int million = 1_000_000;`). Remember you can't use underscores at the beginning or at the end of a number, nor by a decimal;
+* Using numbers in different bases:
+  * Decimal: default, no need to specify anything;
+  * Binary: use the `0b` prefix; Example: `int numberFive = 0b101`;
+  * Octal: use the `0`prefix. Example: `int numberFifteen = 017`;
+  * Hexadecimal: use the `0x` prefix. Example: `int twoHundredAndFiftyFive = 0xFF`;
+* Now reference types are much more interesting;
+* We can think about reference types as Java's weird little _"pointers"_. Just remember that in Java you'll never know the actual memory address that this so-called pointer is storing;
+* Reference types alwais point to a memory address containing an object, not a primitive. Said object may store lots of primitives in it's member fields, but it can't be a primitive itself, since it's an object;
+* Reference type variables can be assigned `null`, meaning that they're not referring to anything. Primitive ones can't do that;
+
+### Wrapper classes
+
+* Every primitive has a corresponding **wrapper class**. Think about wrapper classes as the object version of a primitive, or as a like to call them, primitives on steroids :muscle:;
+* Wrapper classes usually have the same name of it's primitive correspondant, but starting with a capitalized letter (`boolean`'s wrapper is the `Boolean` class, etc); The only exception (:notes: _you are the only exceptioooon_ :notes:) is the `char` wrapper, which is called `Character`;
+* You can "wrap" a primitive by calling it's wrapper's `valueOf` static method, like in `Boolean.valueOf(primitiveBooleanVariable)`;
+* All the wrappers, apart from `Boolean` and `Character`, inherits from the `Number` class. This means that they contain very useful methods to easely convert the wrapped value to another numeric type. Example: `byte byteValue = Double.valueOf(doubleVariable).toByte()`
+
+> **_NOTE_**: Really sleepy already, stopped by page 33 of the book, 98 of the PDF. Almost 10% done :smile:.
+
