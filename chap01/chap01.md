@@ -126,5 +126,72 @@ public int numberVisitors(int month) {
 * You can "wrap" a primitive by calling it's wrapper's `valueOf` static method, like in `Boolean.valueOf(primitiveBooleanVariable)`;
 * All the wrappers, apart from `Boolean` and `Character`, inherits from the `Number` class. This means that they contain very useful methods to easely convert the wrapped value to another numeric type. Example: `byte byteValue = Double.valueOf(doubleVariable).toByte()`
 
-> **_NOTE_**: Really sleepy already, stopped by page 33 of the book, 98 of the PDF. Almost 10% done :smile:.
+### Strings are somewhat special
+
+* Strings aren't primitives, they're reference types just like any other object;
+* You can write multiline Strings by using scape characters or by writing text blocks;
+* Text blocks are marked by triple double quotes (`"""`, Java's MVP :basketball:). It's important to keep in mind that you **must** break the line right after openning the block;
+* Inside a text block you can write whitout worrying about scaping quotes or any other character;
+* Book takes a few paragraphs explaining the difference between _incidental_ and _essential_ whitespaces. The first one is a space that appears in the text block just for code readability, and the second is actually a meaningfull whitespace;
+* You can use a backslash at the end of a line to say that there shouldn't be a break in there;
+
+## Java's Identifiers
+
+* Identifiers are the names of variables, methods, classes, interfaces and packages;
+* The rules for identifiers are:
+  * Identifiers can begin with a letter, currency symbol or an underscore. Any other character leads to a compilation error;
+  * The other characters beyond the first can be numbers;
+  * A single underscore can't be an identifier;
+  * Identifiers can't be the same of any of Java's reserved words;
+* About the last one, book states that the exam will only ask you about the most popular reserved words, so there's no need to memorize all of them;
+* The words `const` and `goto` are reserved, but are not used in Java;
+* The exam will often avoid the naming conventions (_snake case_ for constants, _camel case_ for the rest) in order to trick you;
+
+## Variables
+
+* To declare a variable you just need to define it's type and name. To initialize a variable, you use the equal sign followed by the value you're asigning;
+* You may declare multiple variables in the same line of code if they share the same type, separating them with a comma. Example: `String s1, s2, s3;` declares three String variables;
+* You bay declare AND instantiate multiple variables in the same line, following the same principle. Example: `String s1, s2 = "hello", s3;`
+* A _local_ variable is a variable defined within a constructor, method or initializer block;
+* Defining a _final local variable_ is the same of declaring a final variable with a bigger scope, but it's only valid inside of the local scope. Book makes a big deal about this, so it's probably important;
+* Local variables **must** be initialized before they're used, otherwise the compiler will complain. The exam may try to confuse you with that, so it's better to watch out for variables that are declared but not initilized in the same line;
+* Parameters behave as _local_ variables, in the sense that they only exist within that method or constructor;
+* Variables that are not local must be _instance variables_ or _class variables_. The first ones are nothing but fields, and the second ones are variables which are shared by every instance of that very same class;
+* It's nice to remember that both of the variables above do not require initialization, because they always have a default value;
+* No here comes the `var` part. It's used instead of a variable's type in it's declaration, in order to infer the type;
+* There are a few rules:
+  * The formal name of this feature is _local variable type inference_, which means that it only works in _local_ variables;
+  * After the variable is first initialized, it's type is inferred and can't be changed. This is not JavaScript, we're still civilized;
+  * The variable must be initialized in the same line of code it's being declared. Doing otherwise will lead to a compilation error;
+  * They can't be used in parameters, since they aren't actually _local_ variables;
+* `var` isn't, surprisingly, a reserved word. You can't use it as a type identifier (you can't create a `class var`) though, because it's a _reserved type name_;
+
+### Variable scopes
+
+* This subject has a lot of attention from the authors because it seems to be a good way for the exam to trick us;
+* Local variables can never have a scope larger than the block in which they are defined in, but they can always have a smaller scope if you want;
+* Conditionals, loops and even plain code blocks are ways to limitate a variables scope;
+* Questions containing pieces of code with a very complex logic that won't even compile because of an out of scope variable are pretty common;
+* A good way of tracing the scopes is taking notes on the numbers of the lines in which they're openned and closed. This way, when you look to a variable, you can easely assign it to the correct scope;
+* This is a very good skill during the test, so practice it!
+* With _instance_ and _class_ variables, everything is much easier. They are accessible right after being initialized, by the whole class;
+* Quick list of scopes:
+  * _Local variables_;
+  * _Method parameters_;
+  * _Instance variables_;
+  * _Class variables_;
+
+## The Garbage Collector
+
+* All Java objects are stored in the _heap_ memory space, also refered to as _free store_;
+* Once the heap size is all taken, your Java application is out of memory;
+* _Garbage collection_ is the proccess of freeing memory on the heap space by destroing unused objects;
+* The exam won't ask you about the different garbage colletion algorithms provided by the JVM;
+* The only think you do need to know is how to identify if an object is elegible for being destroyed by the garbage collector;
+* The method `System.gc();` is a way to suggest to the JVM that a gargabage colletor should run. The JVM is free to ignore it though;
+* There are two conditions that make an object _unreachable_, thus elegible for collection:
+  * There's no reference pointing to that object anymore;
+  * All the existing references to that object are out of scope;
+* So the key here is in the difference between an object and it's reference. Garbage collection is all about the references;
+* A good idea during the exam is to draw that old fashioned box system that we use in college when first learning C's pointers;
 
